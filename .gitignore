@@ -33,3 +33,9 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+venv/
+
+# Generated data 
+*.mp4
+*.csv
