@@ -23,8 +23,3 @@ Other dependencies
 The moviewriter of choice, if the animation is saved as a video:
 
 	ffmpeg/mencoder
-	 
-
-![Bragi Logo](http://scienceworld.wolfram.com/physics/gifs/doublepe.gif)
-
-
