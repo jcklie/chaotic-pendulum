@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
 """
-	Simulation of a double pendulum. For more information, feel free
-	to visit the home: https://github.com/Rentier/chaotic-pendulum
+    Simulation of a double pendulum. For more information, feel free
+    to visit the home: https://github.com/Rentier/chaotic-pendulum
 
     Copyright (C) 2013 Jan-Christoph Klie
 
@@ -31,8 +31,8 @@ from numpy import sin, cos, pi, array
     Double pendulum constants
 """
 
-M1 = 1
-M2 = 1
+M1 = 5
+M2 = 5
 L1 = 1
 L2 = 1
 G = 9.80665 # Gravitation, in m/s^2
@@ -43,8 +43,8 @@ G = 9.80665 # Gravitation, in m/s^2
 
 THETA1 = 90 # Initial value of theta1, in degrees
 THETA2 = 90 # Initial value of theta1, in degrees
-W1 = 2      # Initial angular velocity for first pendulum, in rad/s
-W2 = 2      # Initial angular velocity for second pendulum, in rad/s
+W1 = 0      # Initial angular velocity for first pendulum, in rad/s
+W2 = 0      # Initial angular velocity for second pendulum, in rad/s
 
 """
     Integration constants
@@ -52,6 +52,14 @@ W2 = 2      # Initial angular velocity for second pendulum, in rad/s
 
 T_MAX = 20  # End time of simulation, in seconds
 DT = 0.05   # Integration step width, in seconds
+
+"""
+    Move making constants
+"""
+
+REFRESHRATE = DT * 1000 # Every DT seconds, we have a new frame, now in ms
+FPS = 1/REFRESHRATE*1000
+MOVIEWRITER = 'mencoder'
 
 def derivs(state, t):
     """
@@ -152,10 +160,9 @@ def movietime(t, y):
         time_text.set_text(time_template%(i*DT))
         return line, time_text
 
-
-    ani = matplotlib.animation.FuncAnimation(fig, animate, numpy.arange(1, len(y)), interval=25, blit=True, init_func=init)
-    Writer = matplotlib.animation.writers['ffmpeg']
-    writer = Writer(fps=15)
+    ani = matplotlib.animation.FuncAnimation(fig, animate, numpy.arange(1, len(y)), interval=REFRESHRATE, blit=True, init_func=init)
+    Writer = matplotlib.animation.writers[MOVIEWRITER]
+    writer = Writer(fps=FPS)
     ani.save('double_pendulum.mp4', writer=writer)
 
 if __name__ == '__main__':
