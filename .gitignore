@@ -39,3 +39,4 @@ venv/
 # Generated data 
 *.mp4
 *.csv
+*.pdf
